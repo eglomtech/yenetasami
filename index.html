@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#12302A">
+<title>የኔታ ሳሙኤል</title><style>:root {
+  --vellum: #efe3cc;
+  --vellum-2: #e5d6b8;
+  --vellum-3: #d9c69f;
+  --ink: #1c1710;
+  --ink-soft: #5e4e38;
+  --ink-faint: #8a7758;
+  --nave: #12302a;
+  --nave-deep: #0a1e1a;
+  --nave-lift: #1d473d;
+  --nave-line: #2c6153;
+  --rubric: #a3271f;
+  --rubric-lit: #c8503f;
+  --gold: #c79a3e;
+  --gold-soft: #e0be73;
+  --serif:
+    "Noto Serif Ethiopic", "Abyssinica SIL", "Nyala", "Ethiopia Jiret", Georgia,
+    serif;
+  --sans:
+    "Noto Sans Ethiopic", "Abyssinica SIL", "Nyala", system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+  --ease: cubic-bezier(0.32, 0.72, 0.32, 1);
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--nave-deep);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+input {
+  font: inherit;
+}
+:focus-visible {
+  outline: 2px solid var(--gold-soft);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ================= SPLASH ================= */
+#splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: radial-gradient(
+    120% 90% at 50% 30%,
+    #173c33 0%,
+    var(--nave-deep) 65%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  transition:
+    opacity 0.5s var(--ease),
+    visibility 0.5s;
+}
+#splash.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.splash-mark {
+  width: 115px;
+  height: 115px;
+  animation: pulse 1.8s infinite;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 0.85;
+  }
+}
+#splash h1 {
+  font-family: var(--serif);
+  color: var(--vellum);
+  font-size: 1.7rem;
+  margin: 0;
+  animation: pulse 1.8s infinite;
+  animation-delay: 0.2s;
+  letter-spacing: 0.02em;
+}
+#splash span {
+  color: var(--gold-soft);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+}
+.splash-status {
+  animation: pulse 1.8s infinite;
+  animation-delay: 0.3s;
+}
+.designer {
+  width: 100%;
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #c79a3e ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}.design{position:unset;transform: unset; justify-content: flex-start;}
+.designer span {
+  animation: none;
+}
+.designer-mark {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+/* ================= ONBOARDING ================= */
+#onboard {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--vellum);
+  overflow-y: auto;
+  display: none;
+}
+#onboard.show {
+  display: block;
+}
+.ob-hero {
+  background: linear-gradient(160deg, var(--nave) 0%, var(--nave-deep) 100%);
+  color: var(--vellum);
+  text-align: center;
+  padding: 3.2rem 1.6rem 2.6rem;
+  position: relative;
+}
+.ob-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--gold) 0 33%,
+    var(--rubric) 33% 66%,
+    var(--nave-lift) 66% 100%
+  );
+}
+.ob-mark {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 1.1rem;
+}
+.ob-hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 8vw, 2.6rem);
+  margin: 0 0 0.6rem;
+}
+.ob-hero p {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--gold-soft);
+  max-width: 32ch;
+  margin: 0 auto;
+}
+.ob-form {
+  max-width: 26rem;
+  margin: 0 auto;
+  padding: 2rem 1.4rem 3rem;
+}
+.ob-field {
+  margin-bottom: 1.1rem;
+}
+.ob-field label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+.ob-field input {
+  width: 100%;
+  border: 1px solid var(--vellum-3);
+  background: #fff;
+  padding: 0.72rem 0.8rem;
+  font-size: 0.96rem;
+  color: var(--ink);
+}
+.ob-field input:focus {
+  outline: none;
+  border-color: var(--rubric);
+}
+.ob-submit {
+  width: 100%;
+  background: var(--nave);
+  color: var(--vellum);
+  padding: 0.85rem;
+  font-size: 0.95rem;
+  margin-top: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.ob-submit:hover {
+  background: var(--nave-lift);
+}
+.ob-submit:disabled {
+  opacity: 0.6;
+}
+.ob-skip {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  text-decoration: underline;
+}
+.ob-note {
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  text-align: center;
+  margin-top: 1.1rem;
+  line-height: 1.6;
+}
+
+/* ================= APP SHELL ================= */
+#app {
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: var(--rail, 0px) 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "rail head" "rail main" "rail nav";
+  background: var(--vellum);
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.45);
+}
+
+.head {
+  grid-area: head;
+  background: var(--nave);
+  color: var(--vellum);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: calc(0.55rem + env(safe-area-inset-top)) 0.9rem 0.55rem;
+  border-bottom: 1px solid var(--nave-line);
+  position: relative;
+  z-index: 6;
+}
+.head::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--gold) 0 33%,
+    var(--rubric) 33% 66%,
+    var(--nave-lift) 66% 100%
+  );
+  opacity: 0.9;
+}
+.mark {
+  width: 32px;
+  height: 32px;
+  flex: none;
+}
+.head-title {
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  line-height: 1.1;
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.head-sub {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.64rem;
+  color: var(--gold-soft);
+  letter-spacing: 0.05em;
+  margin-top: 0.15rem;
+}
+.head-btn {
+  width: 38px;
+  height: 38px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--vellum-2);
+  transition: background 0.18s var(--ease);
+}
+.head-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+.head-btn svg {
+  width: 19px;
+  height: 19px;
+}
+.back-btn {
+  display: none;
+}
+body[data-depth="deep"] .back-btn {
+  display: grid;
+}
+
+.search-wrap {
+  grid-area: head;
+  align-self: end;
+  display: none;
+  position: relative;
+  z-index: 7;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--vellum);
+  border-bottom: 2px solid var(--vellum-3);
+  padding: 0.5rem 0.9rem;
+}
+.search-bar input {
+  flex: 1;
+  border: 0;
+  background: none;
+  font-size: 1rem;
+  color: var(--ink);
+  padding: 0.35rem 0;
+}
+.search-bar input:focus {
+  outline: none;
+}
+body.searching .search-wrap {
+  display: block;
+}
+
+.main {
+  grid-area: main;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  background: var(--vellum);
+  position: relative;
+}
+.view {
+  display: none;
+}
+.view.on {
+  display: block;
+}
+
+.harag {
+  display: block;
+  width: 100%;
+  height: 12px;
+}
+
+/* ---- home / category folio ---- */
+.folio {
+  background: radial-gradient(
+    120% 80% at 50% 0%,
+    #f6eedc 0%,
+    var(--vellum) 60%,
+    var(--vellum-2) 100%
+  );
+  padding: 0 0 1.2rem;
+  border-bottom: 1px solid var(--vellum-3);
+}
+.folio-inner {
+  text-align: center;
+  padding: 1.7rem 1.4rem 0.3rem;
+}
+.folio-cross {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 0.8rem;
+  display: block;
+}
+.folio h1 {
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 8vw, 2.7rem);
+  line-height: 1.05;
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+.folio p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin: 0 auto;
+  max-width: 34ch;
+}
+.folio-rule {
+  width: 70px;
+  height: 2px;
+  margin: 1rem auto 0;
+  background: var(--rubric);
+  position: relative;
+}
+.folio-rule::before,
+.folio-rule::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+.folio-rule::before {
+  left: -11px;
+}
+.folio-rule::after {
+  right: -11px;
+}
+
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 1.4rem 1.05rem 0.4rem;
+}
+.sec-head h2 {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  margin: 0;
+  font-weight: 600;
+}
+.sec-head span {
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  margin-inline-start: auto;
+}
+
+/* ---- category cards (home) ---- */
+.cats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+  padding: 0.4rem 1.05rem 2rem;
+}
+.cat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #fff;
+  border: 1px solid var(--vellum-3);
+  border-left: 4px solid var(--gold);
+  padding: 1rem 1.1rem;
+  text-align: start;
+  transition:
+    transform 0.15s var(--ease),
+    background 0.15s;
+}
+.cat-card:hover {
+  background: var(--vellum-2);
+  transform: translateX(2px);
+}
+.cat-ico {
+  width: 46px;
+  height: 46px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--nave);
+  display: grid;
+  place-items: center;
+  color: var(--gold-soft);
+}
+.cat-ico svg {
+  width: 22px;
+  height: 22px;
+}
+.cat-body {
+  flex: 1;
+  min-width: 0;
+}
+.cat-t {
+  font-family: var(--serif);
+  font-size: 1.12rem;
+  display: block;
+}
+.cat-s {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  display: block;
+  margin-top: 0.2rem;
+}
+.cat-arrow {
+  color: var(--ink-faint);
+  flex: none;
+}
+.cat-arrow svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---- parts list (category detail) ---- */
+.flist {
+  list-style: none;
+  margin: 0;
+  padding: 0 0.55rem 1.4rem;
+}
+.frow {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  text-align: start;
+  padding: 0.8rem 0.5rem;
+  border-bottom: 1px solid var(--vellum-2);
+  transition: background 0.15s var(--ease);
+}
+.frow:hover {
+  background: var(--vellum-2);
+}
+.gz {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--rubric);
+  min-width: 2.2rem;
+  text-align: center;
+  flex: none;
+  padding-top: 0.1rem;
+}
+.frow-body {
+  flex: 1;
+  min-width: 0;
+}
+.frow-t {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  line-height: 1.35;
+  display: block;
+}
+.frow-s {
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  display: block;
+  margin-top: 0.15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.frow-dur {
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+.frow-play {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--nave);
+  color: var(--gold-soft);
+  display: grid;
+  place-items: center;
+}
+.frow-play svg {
+  width: 15px;
+  height: 15px;
+}
+.frow.playing .frow-t {
+  color: var(--rubric);
+}
+.frow.playing .frow-play {
+  background: var(--rubric);
+}
+
+/* ---- gallery ---- */
+.gal {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  gap: 0.85rem;
+  padding: 0.6rem 1rem 1.6rem;
+}
+.panel {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.panel-frame {
+  background: var(--nave-deep);
+  border: 3px solid var(--gold);
+  box-shadow: 0 2px 0 var(--vellum-3);
+  aspect-ratio: 3/4;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.panel-frame svg {
+  width: 100%;
+  height: 100%;
+}
+.panel-cap {
+  font-family: var(--serif);
+  font-size: 0.84rem;
+  margin-top: 0.45rem;
+  line-height: 1.3;
+}
+.panel-sub {
+  font-size: 0.68rem;
+  color: var(--ink-faint);
+  margin-top: 0.1rem;
+}
+
+/* ---- empty ---- */
+.empty {
+  text-align: center;
+  padding: 2.6rem 1.6rem 3rem;
+  max-width: 32rem;
+  margin: 0 auto;
+}
+.empty svg {
+  width: 48px;
+  height: 48px;
+  color: var(--vellum-3);
+  margin-bottom: 0.9rem;
+}
+.empty h3 {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  margin: 0 0 0.4rem;
+}
+.empty p {
+  font-size: 0.86rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ================= PLAYER VIEW ================= */
+.player-wrap {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 1.1fr 0.9fr;
+  background: linear-gradient(180deg, var(--nave-deep), #0d251f);
+  color: var(--vellum);
+  padding: 2.2rem 1.6rem 2.6rem; gap:1rem;
+}
+.p-art {
+  width: min(35vw, 280px);
+  aspect-ratio: 3/4;
+  border: 4px solid var(--gold);
+  background: #0f1512;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  flex: none;
+}
+.p-art svg {
+  width: 100%;
+  height: 100%;
+}
+.p-meta {
+  text-align: center;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.p-meta .p-cat {
+  font-size: 0.68rem;
+  color: var(--gold-soft);
+  letter-spacing: 0.08em;
+  margin: 0 0 0.35rem;
+}
+.p-meta h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 6vw, 1.8rem);
+  margin: 0 0 0.3rem;
+  font-weight: 600;
+}
+.p-meta p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #b9cfc5;
+}
+.p-seek {
+  width: 100%;
+  max-width: 26rem;
+}
+.p-track {
+  height: 4px;
+  background: var(--nave-lift);
+  position: relative;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.p-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  background: var(--rubric-lit);
+  border-radius: 2px;
+}
+.p-knob {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--rubric-lit);
+  border: 2px solid var(--vellum);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.p-times {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: #7fa396;
+  margin-top: 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+.p-ctrls {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+.c-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--vellum-2);
+}
+.c-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+.c-btn svg {
+  width: 23px;
+  height: 23px;
+}
+.c-main {
+  width: 62px;
+  height: 62px;
+  background: var(--gold);
+  color: var(--nave-deep);
+}
+.c-main:hover {
+  background: var(--gold-soft);
+}
+.c-main svg {
+  width: 28px;
+  height: 28px;
+}
+.p-note {
+  font-size: 0.74rem;
+  color: #7fa396;
+  text-align: center;
+  max-width: 28ch;
+  line-height: 1.7;
+  min-height: 1.2em;
+}
+
+/* ================= ABOUT ================= */
+.about-hero {
+  background: linear-gradient(160deg, var(--nave), var(--nave-deep));
+  color: var(--vellum);
+  text-align: center;
+  padding: 2.6rem 1.6rem 2.2rem;
+  position: relative;
+}
+.about-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--gold) 0 33%,
+    var(--rubric) 33% 66%,
+    var(--nave-lift) 66% 100%
+  );
+}
+.about-ring {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  background: var(--nave-deep);
+  border: 3px solid var(--gold);
+  display: grid;
+  place-items: center;
+}
+.about-ring svg {
+  width: 46px;
+  height: 46px;
+  color: var(--gold-soft);
+}
+.about-hero h2 {
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  margin: 0 0 0.4rem;
+}
+.about-hero p {
+  font-size: 0.82rem;
+  color: var(--gold-soft);
+  margin: 0;
+}
+.about-body {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 1.6rem 1.3rem 3rem;
+}
+.about-body p {
+  font-size: 0.92rem;
+  line-height: 1.9;
+  color: var(--ink);
+  margin: 0 0 1.1rem;
+}
+.about-body h3 {
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--rubric);
+  margin: 1.4rem 0 0.5rem;
+}
+
+/* ================= BOTTOM NAV (3 items) ================= */
+.nav {
+  grid-area: nav;
+  background: var(--nave-deep);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--nave-line);
+  padding-bottom: env(safe-area-inset-bottom);
+  position: relative;
+  z-index: 5;
+}
+.nav-i {
+  padding: 0.55rem 0.2rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.22rem;
+  color: #7fa396;
+  position: relative;
+  transition: color 0.18s var(--ease);
+}
+.nav-i svg {
+  width: 21px;
+  height: 21px;
+}
+.nav-i span {
+  font-size: 0.68rem;
+}
+.nav-i.on {
+  color: var(--gold-soft);
+}
+.nav-i.on::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 2px;
+  background: var(--gold);
+}
+.nav-dot {
+  position: absolute;
+  top: 6px;
+  right: calc(50% - 18px);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--rubric-lit);
+  display: none;
+}
+.nav-i[data-go="player"].has-audio .nav-dot {
+  display: block;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(84px + env(safe-area-inset-bottom));
+  transform: translate(-50%, 14px);
+  background: var(--ink);
+  color: var(--vellum);
+  padding: 0.6rem 1rem;
+  font-size: 0.82rem;
+  z-index: 60;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.22s var(--ease),
+    transform 0.22s var(--ease);
+  max-width: 86vw;
+  text-align: center;
+}
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (min-width: 860px) {
+  :root {
+    --rail: 82px;
+  }
+  .nav {
+    grid-area: rail;
+    grid-template-columns: none;
+    grid-auto-rows: min-content;
+    align-content: start;
+    border-top: 0;
+    border-inline-end: 1px solid var(--nave-line);
+    padding-top: 1rem;
+    gap: 0.2rem;
+  }
+  .nav-i {
+    padding: 0.85rem 0.3rem;
+  }
+  .nav-i.on::before {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 26px;
+  }
+  .nav-dot {
+    top: 8px;
+    right: 14px;
+  }
+  .cats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gal {
+    grid-template-columns: repeat(auto-fill, minmax(178px, 1fr));
+  }
+}
+@media (min-width: 1040px) {
+  .cats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+/* customizing app style */
+#v-player {
+  height: 100%;
+}
+
+.p-head,
+.p-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-head {
+  background: url(./sillas.jpg) no-repeat center center/cover;
+  border-radius: 15px;
+  mask-image: linear-gradient(#000, #000, #00000007 98%);
+  border: 2px solid #2c6153;
+}
+
+.p-art {
+  display: none;
+}
+
+.p-body {
+  justify-content: flex-end;
+}
+</style>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body data-depth="top">
+
+<!-- ================= SPLASH ================= -->
+<div id="splash">
+  <svg class="splash-mark" viewBox="0 0 64 64" aria-hidden="true">
+    <circle cx="32" cy="32" r="30" fill="none" stroke="#C79A3E" stroke-width="2"/>
+    <circle cx="32" cy="32" r="24" fill="#12302A"/>
+    <path d="M32 11v42M11 32h42" stroke="#C79A3E" stroke-width="2.6"/>
+    <path d="M32 11l-7 7h14zM32 53l-7-7h14zM11 32l7-7v14zM53 32l-7-7v14z" fill="#A3271F"/>
+    <circle cx="32" cy="32" r="6.5" fill="none" stroke="#E0BE73" stroke-width="2"/>
+    <circle cx="32" cy="32" r="2" fill="#E0BE73"/>
+  </svg>
+  <h1>የኔታ ሳሙኤል</h1>
+  <span class="splash-status">እየተከፈተ ነው…</span> <div class="designer"><svg class="splash-mark designer-mark" viewBox="0 0 64 64" aria-hidden="true">
+    <circle cx="32" cy="32" r="30" fill="none" stroke="#C79A3E" stroke-width="2"/>
+    <circle cx="32" cy="32" r="24" fill="#12302A"/>
+    <path d="M32 11v42M11 32h42" stroke="#C79A3E" stroke-width="2.6"/>
+    <path d="M32 11l-7 7h14zM32 53l-7-7h14zM11 32l7-7v14zM53 32l-7-7v14z" fill="#A3271F"/>
+    <circle cx="32" cy="32" r="6.5" fill="none" stroke="#E0BE73" stroke-width="2"/>
+    <circle cx="32" cy="32" r="2" fill="#E0BE73"/>
+  </svg><span>Designed by:</span> Anteneh</div>
+</div>
+
+<!-- ================= ONBOARDING (first visit only) ================= -->
+<div id="onboard">
+  <div class="ob-hero">
+    <svg class="ob-mark" viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="32" r="30" fill="none" stroke="#C79A3E" stroke-width="2"/>
+      <circle cx="32" cy="32" r="24" fill="#12302A"/>
+      <path d="M32 11v42M11 32h42" stroke="#C79A3E" stroke-width="2.6"/>
+      <path d="M32 11l-7 7h14zM32 53l-7-7h14zM11 32l7-7v14zM53 32l-7-7v14z" fill="#A3271F"/>
+      <circle cx="32" cy="32" r="6.5" fill="none" stroke="#E0BE73" stroke-width="2"/>
+      <circle cx="32" cy="32" r="2" fill="#E0BE73"/>
+    </svg>
+    <h1>እንኳን ደህና መጡ</h1>
+    <p>ወደ የኔታ ሳሙኤል — የቅዳሴና የመዝሙር መማሪያ። ከመቀጠልዎ በፊት ስለ እርስዎ ጥቂት ይንገሩን።</p>
+  </div>
+  <form class="ob-form" id="obForm">
+    <div class="ob-field"><label for="obName">ሙሉ ስም</label><input id="obName" required autocomplete="name" placeholder="ለምሳሌ፦ አበበ ተስፋዬ"></div>
+    <div class="ob-field"><label for="obEmail">ኢሜይል</label><input id="obEmail" type="email" required autocomplete="email" placeholder="you@example.com"></div>
+    <div class="ob-field"><label for="obPhone">ስልክ ቁጥር</label><input id="obPhone" type="tel" required autocomplete="tel" placeholder="09xx xxx xxx"></div>
+    <div class="ob-field"><label for="obJob">ሥራ</label><input id="obJob" required placeholder="ለምሳሌ፦ ዲያቆን፣ ተማሪ"></div>
+    <button class="ob-submit" type="submit" id="obSubmit">
+      <span id="obSubmitText">ቀጥል</span>
+    </button>
+    <button type="button" class="ob-skip" id="obSkip">ትዝለል (Skip)</button>
+    <p class="ob-note">መረጃው ለምዝገባ ብቻ ጥቅም ላይ ይውላል። EmailJS ግንኙነቱ በ placeholder ID ተቀናብሯል — በራስዎ የ EmailJS መለያ ይተኩት።</p>
+  </form>
+</div>
+
+<!-- ================= APP SHELL ================= -->
+<div id="app">
+  <header class="head">
+    <button class="head-btn back-btn" id="back" aria-label="ተመለስ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+    </button>
+    <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="32" r="30" fill="none" stroke="#C79A3E" stroke-width="2"/>
+      <circle cx="32" cy="32" r="24" fill="#12302A"/>
+      <path d="M32 11v42M11 32h42" stroke="#C79A3E" stroke-width="2.6"/>
+      <path d="M32 11l-7 7h14zM32 53l-7-7h14zM11 32l7-7v14zM53 32l-7-7v14z" fill="#A3271F"/>
+      <circle cx="32" cy="32" r="6.5" fill="none" stroke="#E0BE73" stroke-width="2"/>
+      <circle cx="32" cy="32" r="2" fill="#E0BE73"/>
+    </svg>
+    <h1 class="head-title" id="htitle">የኔታ ሳሙኤል<span class="head-sub" id="hsub">የቅዳሴ መማሪያ</span></h1>
+    <button class="head-btn" id="searchBtn" aria-label="ፈልግ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg>
+    </button>
+  </header>
+
+  <div class="search-wrap">
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#8A7758" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg>
+      <input id="searchInput" type="search" placeholder="ፈልግ" autocomplete="off">
+      <button class="head-btn" id="searchClose" aria-label="ዝጋ" style="color:#5E4E38;width:30px;height:30px">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <main class="main" id="main">
+
+    <!-- ---------- HOME (categories) ---------- -->
+    <section class="view on" id="v-home">
+      <div class="folio">
+        <div class="folio-inner">
+          <svg class="folio-cross" viewBox="0 0 80 80" aria-hidden="true">
+            <path d="M40 4v72M4 40h72" stroke="#A3271F" stroke-width="3"/>
+            <path d="M40 4L29 17h22zM40 76L29 63h22zM4 40l13-11v22zM76 40L63 29v22z" fill="#C79A3E"/>
+            <rect x="27" y="27" width="26" height="26" fill="none" stroke="#A3271F" stroke-width="2.4" transform="rotate(45 40 40)"/>
+            <circle cx="40" cy="40" r="5" fill="#A3271F"/>
+          </svg>
+          <h1>የኔታ ሳሙኤል</h1>
+          <p>ቅዳሴያት፣ መዝሙራት እና ሥዕላት — ያለ ኢንተርኔት።</p>
+          <div class="folio-rule"></div>
+        </div>
+      </div>
+      <div class="sec-head"><h2>ምድቦች</h2></div>
+      <div class="cats" id="catList"></div>
+    </section>
+
+    <!-- ---------- CATEGORY DETAIL (parts) ---------- -->
+    <section class="view" id="v-category">
+      <div class="sec-head"><h2 id="catTitle">—</h2><span id="catCount"></span></div>
+      <ul class="flist" id="partList"></ul>
+    </section>
+
+    <!-- ---------- GALLERY DETAIL ---------- -->
+    <section class="view" id="v-gallery">
+      <div class="sec-head"><h2>ሥዕላት</h2><span>የብራና ሥዕሎች</span></div>
+      <div class="gal" id="gal"></div>
+    </section>
+
+    <!-- ---------- PLAYER ---------- -->
+    <section class="view" id="v-player">
+      <div class="player-wrap" id="playerWrap">
+        <div class="empty" style="padding-top:2.5rem">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4C7367" stroke-width="1.5"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>
+          <h3 style="color:#EFE3CC">ምንም እየተጫወተ አይደለም</h3>
+          <p style="color:#8FB0A4">ከቅዳሴያት ወይም ከመዝሙራት ውስጥ አንዱን ምረጥ።</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- ABOUT ---------- -->
+    <section class="view" id="v-about">
+      <div class="about-hero">
+        <div class="about-ring">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.2-4.2 4.6-6.3 7.5-6.3s6.3 2.1 7.5 6.3"/></svg>
+        </div>
+        <h2>ስለ የኔታ ሳሙኤል</h2>
+        <p>መምህርና መሪ የቅዳሴ ትምህርት</p>
+      </div>
+      <div class="about-body">
+        <p>የኔታ ሳሙኤል ለዓመታት ዲያቆናትንና የቅዳሴ ተማሪዎችን በማስተማር የቆዩ የቤተ ክርስቲያን መምህር ናቸው። ይህ መተግበሪያ ትምህርታቸውን በቀላሉ፣ በማንኛውም ቦታና ያለ ኢንተርኔት ለማዳረስ ተዘጋጅቷል።</p>
+        <h3>ዓላማ</h3>
+        <p>ተማሪዎች ትምህርት ቤት ሳይገኙ የቅዳሴንና የመዝሙርን ድምፅ በመስማት እንዲማሩ፣ የቤተ ክርስቲያንን ትውፊት በቀላሉ እንዲቀስሙ ማገዝ።</p>
+        <h3>ይዘት</h3>
+        <p>ዐሥራ አራቱ ቅዳሴያት፣ ልዩ ልዩ መዝሙራትና የብራና ሥዕላት በአንድ ቦታ ተሰብስበዋል።</p> <div class="designer design"  style="color:#000; "><svg class="splash-mark designer-mark" viewBox="0 0 64 64" aria-hidden="true">
+    <circle cx="32" cy="32" r="30" fill="none" stroke="#C79A3E" stroke-width="2"/>
+    <circle cx="32" cy="32" r="24" fill="#12302A"/>
+    <path d="M32 11v42M11 32h42" stroke="#C79A3E" stroke-width="2.6"/>
+    <path d="M32 11l-7 7h14zM32 53l-7-7h14zM11 32l7-7v14zM53 32l-7-7v14z" fill="#A3271F"/>
+    <circle cx="32" cy="32" r="6.5" fill="none" stroke="#E0BE73" stroke-width="2"/>
+    <circle cx="32" cy="32" r="2" fill="#E0BE73"/>
+  </svg><span style="color:#a3271f; font-weight: 700;">Designed by:</span> Anteneh Nigatu</div>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="nav">
+    <button class="nav-i on" data-go="home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 11.5L12 4l8 7.5"/><path d="M6 10v9h12v-9"/></svg>
+      <span>መነሻ</span>
+    </button>
+    <button class="nav-i" data-go="player">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z" fill="currentColor" stroke="none"/></svg>
+      <span class="nav-dot"></span>
+      <span>ማጫወቻ</span>
+    </button>
+    <button class="nav-i" data-go="about">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 20c1.2-4 4.5-6 7.5-6s6.3 2 7.5 6"/></svg>
+      <span>ስለ እኛ</span>
+    </button>
+  </nav>
+</div>
+
+<div class="toast" id="toast"></div>
+<audio id="audio" preload="metadata"></audio>
+
+<!-- EmailJS — placeholder account. Replace SERVICE_ID / TEMPLATE_ID / PUBLIC_KEY with your own. -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+"use strict";
+const EMAILJS_PUBLIC_KEY  = "ZIEe9942KSfwXSM8J";
+const EMAILJS_SERVICE_ID  = "beza@1667";
+const EMAILJS_TEMPLATE_ID = "hospital_template";
+try{ if(window.emailjs) emailjs.init({publicKey:EMAILJS_PUBLIC_KEY}); }catch(e){}
+
+const GEEZ=["፩","፪","፫","፬","፭","፮","፯","፰","፱","፲","፲፩","፲፪","፲፫","፲፬"];
+
+const QIDASE=[
+ {t:"ቅዳሴ ሐዋርያት",s:"የሐዋርያት ትውፊት",d:"18:20",audio:"./audio/ሠራዋት ዘሐዋርያት.wav"},
+ {t:"ቅዳሴ እግዚእ",s:"የጌታችን ቅዳሴ",d:"16:05",audio:"./audio/serawit melaktihu (like naile).wav"},
+ {t:"ቅዳሴ ማርያም",s:"ዘቄርሎስ ዘእስክንድርያ",d:"15:40",audio:"./audio/እግዚኦ መሀረነ ክርስቶስ.wav"},
+ {t:"ቅዳሴ ዮሐንስ ወልደ ነጎድጓድ",s:"ወንጌላዊው ዮሐንስ",d:"14:10",audio:"./audio/egzio yared.wav"},
+ {t:"ቅዳሴ ሠለስቱ ምዕት",s:"ሦስት መቶ ዐሥራ ስምንቱ ሊቃውንት",d:"17:30",audio:"./audio/qidase-05-selestu.mp3"},
+ {t:"ቅዳሴ አትናቴዎስ",s:"ሊቀ ጳጳሳት ዘእስክንድርያ",d:"13:50",audio:"./audio/qidase-06-atnatewos.mp3"},
+ {t:"ቅዳሴ ባስልዮስ",s:"ዘቂሳርያ",d:"15:15",audio:"./audio/qidase-07-baselyos.mp3"},
+ {t:"ቅዳሴ ጎርጎርዮስ",s:"ዘእንዜናዙ",d:"14:45",audio:"./audio/qidase-08-gorgoryos.mp3"},
+ {t:"ቅዳሴ ኤጲፋንዮስ",s:"ዘቆጵሮስ",d:"16:30",audio:"./audio/qidase-09-epifanyos.mp3"},
+ {t:"ቅዳሴ ዮሐንስ አፈወርቅ",s:"ዘቊስጥንጥንያ",d:"18:00",audio:"./audio/qidase-10-afework.mp3"},
+ {t:"ቅዳሴ ቄርሎስ",s:"ዓምደ ሃይማኖት",d:"13:20",audio:"./audio/qidase-11-qerlos.mp3"},
+ {t:"ቅዳሴ ያዕቆብ ዘሥሩግ",s:"መሠረተ ሃይማኖት",d:"14:55",audio:"./audio/qidase-12-yaeqob.mp3"},
+ {t:"ቅዳሴ ዲዮስቆሮስ",s:"ዘእስክንድርያ",d:"12:40",audio:"./audio/qidase-13-dioskoros.mp3"},
+ {t:"ቅዳሴ ጎርጎርዮስ ዘኑሲስ",s:"ካልዕ ጎርጎርዮስ",d:"15:05",audio:"./audio/qidase-14-gorgoryos2.mp3"}
+];
+
+const HYMNS=[
+ {t:"ውዳሴ ማርያም",s:"ዘሠኑይ",d:"14:20",audio:"./audio/hymn-wudase-maryam.mp3"},
+ {t:"መልክአ ማርያም",s:"አርኬ",d:"09:45",audio:"./audio/hymn-melkea-maryam.mp3"},
+ {t:"አንቀጸ ብርሃን",s:"ዘአባ ጽጌ ድንግል",d:"11:02",audio:"./audio/hymn-anqetse-berhan.mp3"},
+ {t:"መልክአ ሥላሴ",s:"ምስጋና ለሥሉስ ቅዱስ",d:"08:30",audio:"./audio/hymn-melkea-selassie.mp3"},
+ {t:"ጸሎተ ሃይማኖት",s:"ነአምን በአሐዱ አምላክ",d:"03:15",audio:"./audio/hymn-tselote-haymanot.mp3"},
+ {t:"እግዚኦ መሐረነ ክርስቶስ",s:"ምልጃ",d:"06:40",audio:"./audio/hymn-egzio-meharene.mp3"},
+ {t:"ተፈሥሒ ማርያም",s:"ዘንጉሠ ሰላም",d:"07:55",audio:"./audio/hymn-tefeshi-maryam.mp3"},
+ {t:"አስተብቍዖት",s:"ልመና ዘካህናት",d:"05:10",audio:"./audio/hymn-astebqueot.mp3"},
+ {t:"መዝሙረ ዳዊት ፻፶",s:"ንባብ በዜማ",d:"21:30",audio:"./audio/hymn-mezmure-dawit.mp3"},
+ {t:"ዕዝል ዘዘወትር",s:"የዜማ ዓይነት",d:"12:05",audio:"./audio/hymn-ezl.mp3"}
+];
+const KUTIRE=[
+ {t:"ጸሎት ዘዘወትር",s:"ዘዘወትር",d:"14:20",audio:"./audio/"},
+ {t:"ውዳሴ ማርያም",s:"ዘሠኑይ - ሰንበተ ክርስቲያን",d:"14:20",audio:"./audio/"},
+ {t:"አንቀጸ ብርሃን",s:"ዘአባ ጽጌ ድንግል",d:"11:02",audio:"./audio/hymn-anqetse-berhan.mp3"},
+ {t:"መልክአ ማርያም",s:"አርኬ",d:"09:45",audio:"./audio/hymn-melkea-maryam.mp3"},
+ {t:"መልክአ ኢየሱስ ",s:"አርኬ",d:"09:45",audio:"./audio/hymn-melkea-maryam.mp3"},
+ {t:"መልክአ ኤዶም ",s:"አርኬ",d:"09:45",audio:"./audio/hymn-melkea-maryam.mp3"},
+ {t:"መልክአ ሥላሴ",s:"ምስጋና ለሥሉስ ቅዱስ",d:"08:30",audio:"./audio/hymn-melkea-selassie.mp3"},
+ {t:"መዝሙረ ዳዊት ዘሠኑይ",s:"ንባብ በዜማ",d:"21:30",audio:"./audio/hymn-mezmure-dawit.mp3"},
+];
+const SEATAT = [
+  {t: "ሰዐታት ይትባረክ",s: "በኔታ ሳሙኤል",d: "05:45",audio: "./audio/ሰዐታት ይትባረክ.wav"},
+  {t: "ሰዐታት ሃሌሉያ",s: "በኔታ ሳሙኤል",d: "05:45",audio: "./audio/ሰዐታት ሃሌሉያ.wav"},
+  {t: "ሰዐታት ምህረተከ እሴብሕ እግዚኦ",s: "በኔታ ሳሙኤል",d: "05:45",audio: "./audio/mehreteke esebh.wav"},
+  {t: "ሰዐታት ምህረተከ...(2)",s: "በኔታ ሳሙኤል",d: "05:45",audio: "./audio/egene leke egzio.wav"},
+  {t: "ሰዐታት ጸልዩ",s: "በኔታ ሳሙኤል",d: "05:45",audio: "./audio/ሰዐታት ጸልዩ.wav"},
+  {t: "ሰዐታት ቅዱስ",s: "በኔታ ሳሙኤል",d: "05:45",audio: "./audio/ሰዐታት ቅዱስ.wav"},
+  {t: "ሰዐታት ቅዱስ (2)",s: "በኔታ ሳሙኤል",d: "05:45",audio: "./audio/ሰዐታት ቅዱስ 2.wav"},
+  {t: "ሰዐታት ግነዩ",s: "በኔታ ሳሙኤል",d: "05:45",audio: "./audio/ሰዐታት ግነዩ.wav"},
+{t: "ጸልዩ (1)",s: "በዲ/ን ዳንኤል",d: "05:45",audio: "./audio/theseleyu.wav"},
+{t: "ጸልዩ (2)",s: "በዲ/ን ዳንኤል",d: "05:45",audio: "./audio/thseleyu.wav"},
+{t: "ጸልዩ (3)",s: "በዲ/ን ዳንኤል",d: "05:45",audio: "./audio/theseleyu (2).wav"},
+{t: "",s: "",d: "05:45",audio: "./audio/"},
+];
+const ZEMA = [  
+{t: "ውዳሴ ማርያም ዘሠኑይ ",s: "በኔታ ሳሙኤል",d: "05:45",audio: "./audio/"},
+{t: "ውዳሴ ማርያም ዘሠሉስ",s: "በኔታ ሳሙኤል",d: "05:45",audio: "./audio/"},
+{t: "ውዳሴ ማርያም ዘረቡዕ",s: "በኔታ ሳሙኤል",d: "05:45",audio: "./audio/"},
+{t: "ውዳሴ ማርያም ዘሐሙስ",s: "በኔታ ሳሙኤል",d: "05:45",audio: "./audio/"},
+{t: "ውዳሴ ማርያም ዘዕለተ ዓርብ",s: "በኔታ ሳሙኤል",d: "05:45",audio: "./audio/"},
+{t: "ውዳሴ ማርያም ዘቀዳሚት",s: "በኔታ ሳሙኤል",d: "05:45",audio: "./audio/"},
+{t: "ውዳሴ ማርያም ዘሰንበተ ክርስቲያን",s: "በኔታ ሳሙኤል",d: "05:45",audio: "./audio/"},
+];
+const ICONS=[
+ {t:"ሥላሴ",s:"ቅዱስ ሥላሴ",k:"trinity"},
+ {t:"ኪዳነ ምሕረት",s:"እመቤታችን",k:"marian"},
+ {t:"መስቀል",s:"ቅዱስ መስቀል",k:"cross"},
+ {t:"ቅዱስ ሚካኤል",s:"መልአከ ብርሃን",k:"angel"},
+ {t:"ቅዱስ ጊዮርጊስ",s:"ሰማዕት",k:"knight"},
+ {t:"አቡነ ተክለ ሃይማኖት",s:"ጻድቅ",k:"saint"}
+];
+
+const CATS=[
+ {key:"hymns",t:"መሠረተ ትምህርት",s:8+ " ትምህርት",list:KUTIRE,kind:"መሠረተ ትምህርት",
+   icon:'<path d="M4 4.5h6a2 2 0 012 2V20a1.6 1.6 0 00-1.6-1.6H4zM20 4.5h-6a2 2 0 00-2 2V20a1.6 1.6 0 011.6-1.6H20z"/>'},
+ {key:"qidase",t:"ሥርዐተ ቅዳሴ (ግዕዝ)",s:QIDASE.length+" ቅዳሴ",list:QIDASE,kind:"ቅዳሴ",
+   icon:'<path d="M9 17V5.6l9-1.6V15"/><circle cx="6.6" cy="17.2" r="2.4"/><circle cx="15.6" cy="15.2" r="2.4"/>'},
+ {key:"qidase",t:"ሥርዐተ ቅዳሴ (ዕዝል)",s:QIDASE.length+" ቅዳሴ",list:QIDASE,kind:"ቅዳሴ",
+   icon:'<path d="M9 17V5.6l9-1.6V15"/><circle cx="6.6" cy="17.2" r="2.4"/><circle cx="15.6" cy="15.2" r="2.4"/>'},
+ {key:"seatat",t:"መጽሐፈ ሰዓታት",s:SEATAT.length+" ምዕራፍ",list:SEATAT,kind:"ሰዓታት",
+   icon:'<path d="M4 4.5h6a2 2 0 012 2V20a1.6 1.6 0 00-1.6-1.6H4zM20 4.5h-6a2 2 0 00-2 2V20a1.6 1.6 0 011.6-1.6H20z"/>'},
+ {key:"zema",t:"ውዳሴ ማርያም ዜማ ",s:ZEMA.length+" ዜማ",list:ZEMA,kind:"ዜማ",
+   icon:'<path d="M9 17V5.6l9-1.6V15"/><circle cx="6.6" cy="17.2" r="2.4"/><circle cx="15.6" cy="15.2" r="2.4"/>'},
+ {key:"qidase",t:"ሠራዊት ",s:QIDASE.length+" ሠራዊት",list:QIDASE,kind:"ሠራዊት",
+   icon:'<path d="M4 4.5h6a2 2 0 012 2V20a1.6 1.6 0 00-1.6-1.6H4zM20 4.5h-6a2 2 0 00-2 2V20a1.6 1.6 0 011.6-1.6H20z"/>'},
+ {key:"gallery",t:"ሥዕላት",s:ICONS.length+" ሥዕል",list:ICONS,kind:"gallery",
+   icon:'<rect x="3.5" y="3.5" width="17" height="17"/><path d="M3.5 15.5l4.5-4.5 3.5 3.5L15 11l5.5 5.5"/><circle cx="9" cy="8.5" r="1.6"/>'},
+];
+
+function panelSVG(kind){
+  const g="#C79A3E", r="#A3271F", v="#EFE3CC", d="#0F1512", b="#1D473D";
+  const frames={
+    trinity:`<circle cx="50" cy="42" r="15" fill="none" stroke="${g}" stroke-width="2"/><circle cx="37" cy="64" r="15" fill="none" stroke="${g}" stroke-width="2"/><circle cx="63" cy="64" r="15" fill="none" stroke="${g}" stroke-width="2"/><circle cx="50" cy="57" r="6" fill="${r}"/>`,
+    marian:`<path d="M50 24c14 0 22 12 22 26s-9 28-22 28-22-14-22-28 8-26 22-26z" fill="none" stroke="${g}" stroke-width="2"/><circle cx="50" cy="44" r="9" fill="none" stroke="${r}" stroke-width="2"/><path d="M50 57v22M41 66h18" stroke="${r}" stroke-width="2"/>`,
+    cross:`<path d="M50 18v66M22 44h56" stroke="${g}" stroke-width="3"/><path d="M50 18l-9 11h18zM50 84l-9-11h18zM22 44l11-9v18zM78 44l-11-9v18z" fill="${r}"/><rect x="40" y="34" width="20" height="20" fill="none" stroke="${g}" stroke-width="2" transform="rotate(45 50 44)"/>`,
+    angel:`<circle cx="50" cy="32" r="10" fill="none" stroke="${g}" stroke-width="2"/><path d="M50 42v40" stroke="${g}" stroke-width="2"/><path d="M50 48L24 34v26zM50 48l26-14v26z" fill="none" stroke="${r}" stroke-width="2"/>`,
+    knight:`<path d="M50 20l24 10v22c0 18-12 26-24 32-12-6-24-14-24-32V30z" fill="none" stroke="${g}" stroke-width="2"/><path d="M50 34v34M36 48h28" stroke="${r}" stroke-width="2.6"/>`,
+    saint:`<circle cx="50" cy="34" r="11" fill="none" stroke="${g}" stroke-width="2"/><path d="M32 84c0-16 8-26 18-26s18 10 18 26z" fill="none" stroke="${g}" stroke-width="2"/><path d="M50 46v18M43 53h14" stroke="${r}" stroke-width="2"/>`,
+    audio:`<circle cx="50" cy="50" r="26" fill="none" stroke="${g}" stroke-width="2"/><path d="M42 38l18 12-18 12z" fill="${r}"/>`
+  };
+  return `<svg viewBox="0 0 100 130" preserveAspectRatio="xMidYMid slice"><rect width="100" height="130" fill="${d}"/><rect x="4" y="4" width="92" height="122" fill="none" stroke="${b}" stroke-width="1"/><rect x="8" y="8" width="84" height="114" fill="none" stroke="${g}" stroke-width="1"/><g transform="translate(0,14)">${frames[kind]||frames.cross}</g><g fill="${g}" opacity=".85"><path d="M12 116l4-4 4 4-4 4zM30 116l4-4 4 4-4 4zM48 116l4-4 4 4-4 4zM66 116l4-4 4 4-4 4zM84 116l-4-4-4 4 4 4z"/></g><path d="M8 108h84" stroke="${v}" stroke-width=".6" opacity=".35"/></svg>`;
+}
+
+const mem={};
+const store={
+  get(k){try{return localStorage.getItem(k)}catch(e){return k in mem?mem[k]:null}},
+  set(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}
+};
+
+const $=s=>document.querySelector(s);
+const $$=s=>Array.from(document.querySelectorAll(s));
+const audio=$("#audio");
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove("show"),2600)}
+
+const state={view:"home",curCat:null,queue:[],idx:-1,kind:null,playing:false};
+
+/* ---------- render home ---------- */
+function renderCats(){
+  $("#catList").innerHTML=CATS.map(c=>`
+    <button class="cat-card" data-cat="${c.key}">
+      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">${c.icon}</svg></span>
+      <span class="cat-body"><span class="cat-t">${esc(c.t)}</span><span class="cat-s">${esc(c.s)}</span></span>
+      <span class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></span>
+    </button>`).join("");
+}
+
+/* ---------- render category detail (parts) ---------- */
+function renderParts(catKey,filter=""){
+  const cat=CATS.find(c=>c.key===catKey);
+  if(!cat) return;
+  $("#catTitle").textContent=cat.t;
+  const f=filter.trim();
+  const rows=cat.list.map((it,i)=>({it,i})).filter(({it})=>!f||it.t.includes(f)||it.s.includes(f));
+  $("#catCount").textContent=f?rows.length+" ውጤት":cat.list.length+(cat.kind==="gallery"?" ሥዕል":" ክፍል");
+  if(cat.kind==="gallery"){
+    $("#partList").innerHTML="";
+    go("gallery",cat.t,"የብራና ሥዕሎች");
+    renderGallery();
+    return;
+  }
+  $("#partList").innerHTML=rows.length?rows.map(({it,i})=>`
+    <li><button class="frow" data-part="${i}">
+      <span class="gz">${GEEZ[i]||(i+1)}</span>
+      <span class="frow-body"><span class="frow-t">${esc(it.t)}</span><span class="frow-s">${esc(it.s)}</span></span>
+      <span class="frow-dur">${it.d||""}</span>
+      <span class="frow-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+    </button></li>`).join("")
+    :`<li><div class="empty"><h3>ምንም አልተገኘም</h3><p>ሌላ ቃል ሞክር።</p></div></li>`;
+  markPlayingRows();
+}
+
+function renderGallery(){
+  $("#gal").innerHTML=ICONS.map((ic,i)=>`
+    <button class="panel" data-ic="${i}">
+      <span class="panel-frame">${panelSVG(ic.k)}</span>
+      <span class="panel-cap">${esc(ic.t)}</span>
+      <span class="panel-sub">${esc(ic.s)}</span>
+    </button>`).join("");
+}
+
+function markPlayingRows(){
+  $$(".frow[data-part]").forEach(r=>{
+    r.classList.toggle("playing", state.curCat===currentCatKey() && +r.dataset.part===state.idx);
+  });
+}
+function currentCatKey(){return state.curCat}
+
+/* ---------- navigation ---------- */
+const TITLES={
+  home:["የኔታ ሳሙኤል","የቅዳሴ መማሪያ"],
+  category:["","" ],
+  gallery:["ሥዕላት","የብራና ሥዕሎች"],
+  player:["ማጫወቻ","እያዳመጡ ያለው"],
+  about:["ስለ እኛ","የኔታ ሳሙኤል"]
+};
+function go(view,title,sub){
+  state.view=view;
+  $$(".view").forEach(v=>v.classList.toggle("on", v.id==="v-"+view));
+  $$(".nav-i").forEach(b=>b.classList.toggle("on", b.dataset.go===view));
+  const [t,s]=TITLES[view]||["",""];
+  $("#htitle").firstChild.nodeValue = title!==undefined ? title : t;
+  $("#hsub").textContent = sub!==undefined ? sub : s;
+  document.body.dataset.depth = (view==="category"||view==="gallery") ? "deep" : "top";
+  closeSearch();
+  $("#main").scrollTop=0;
+}
+
+$$(".nav-i").forEach(b=>b.addEventListener("click",()=>{
+  const v=b.dataset.go;
+  if(v==="home") go("home");
+  else if(v==="player") go("player");
+  else if(v==="about") go("about");
+}));
+$("#back").addEventListener("click",()=>go("home"));
+
+/* ---------- search ---------- */
+function openSearch(){document.body.classList.add("searching");$("#searchInput").focus()}
+function closeSearch(){document.body.classList.remove("searching");$("#searchInput").value=""}
+$("#searchBtn").addEventListener("click",openSearch);
+$("#searchClose").addEventListener("click",closeSearch);
+$("#searchInput").addEventListener("input",e=>{
+  if(state.view==="category") renderParts(state.curCat,e.target.value);
+});
+
+/* ---------- click routing ---------- */
+document.addEventListener("click",e=>{
+  const cat=e.target.closest("[data-cat]");
+  if(cat){
+    state.curCat=cat.dataset.cat;
+    const c=CATS.find(x=>x.key===state.curCat);
+    if(c.kind==="gallery"){ renderParts(state.curCat); }
+    else{ go("category",c.t,c.list.length+(c.kind==="gallery"?" ሥዕል":" ክፍል")); renderParts(state.curCat); }
+    return;
+  }
+  const part=e.target.closest("[data-part]");
+  if(part){
+    const c=CATS.find(x=>x.key===state.curCat);
+    playFrom(c.list,+part.dataset.part,c.kind);
+    go("player");
+    return;
+  }
+  const ic=e.target.closest("[data-ic]");
+  if(ic){ toast(ICONS[+ic.dataset.ic].t+" — ማብራሪያ ገና አልገባም"); return; }
+});
+
+/* ---------- player ---------- */
+function renderPlayerShell(it,kind){ 
+  $("#playerWrap").innerHTML=`<div class="p-head">
+    <div class="p-art" id="pArt">${panelSVG(kind==="hymn"?"marian":"audio")}</div></div><div class="p-body">
+    <div class="p-meta">
+      <p class="p-cat">${kind}</p>
+      <h2 id="pTitle">${esc(it.t)}</h2>
+      <p id="pSub">${esc(it.s)}</p>
+    </div>  
+    <div class="p-seek">
+      <div class="p-track" id="pTrack"><div class="p-fill" id="pFill"></div><div class="p-knob" id="pKnob"></div></div>
+      <div class="p-times"><span id="pCur">0:00</span><span id="pDur">0:00</span></div>
+    </div>
+    <div class="p-ctrls">
+      <button class="c-btn" id="pPrev" aria-label="ያለፈው"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h2.2v14H7zM19 5l-9 7 9 7z"/></svg></button>
+      <button class="c-btn c-main" id="pPlay" aria-label="አጫውት"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></button>
+      <button class="c-btn" id="pNext" aria-label="ቀጣይ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 5h-2.2v14H17zM5 5l9 7-9 7z"/></svg></button>
+    </div>
+    <p class="p-note" id="pNote"></p></div>`;
+  bindPlayerControls();
+}
+
+function bindPlayerControls(){
+  $("#pPlay").addEventListener("click",toggle);
+  $("#pPrev").addEventListener("click",()=>step(-1));
+  $("#pNext").addEventListener("click",()=>step(1));
+  let dragging=false;
+  const track=$("#pTrack");
+  function seekTo(clientX){
+    const r=track.getBoundingClientRect();
+    const p=Math.min(1,Math.max(0,(clientX-r.left)/r.width));
+    if(audio.duration) audio.currentTime=p*audio.duration;
+    $("#pFill").style.width=p*100+"%"; $("#pKnob").style.left=p*100+"%";
+  }
+  track.addEventListener("pointerdown",e=>{dragging=true;track.setPointerCapture(e.pointerId);seekTo(e.clientX)});
+  track.addEventListener("pointermove",e=>{if(dragging)seekTo(e.clientX)});
+  track.addEventListener("pointerup",()=>{dragging=false});
+}
+
+function playFrom(list,i,kind){
+  state.queue=list; state.idx=i; state.kind=kind;
+  const it=list[i];
+  renderPlayerShell(it,kind);
+  $(".nav-i[data-go='player']").classList.add("has-audio");
+  audio.src=it.audio||"";
+  audio.play().then(()=>setPlaying(true)).catch(()=>{
+    setPlaying(false);
+    const n=$("#pNote"); if(n) n.textContent="የድምፅ ፋይሉ አልተገኘም — ";
+  });
+  markPlayingRows();
+}
+
+function setPlaying(on){
+  state.playing=on;
+  const pauseIcon='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>';
+  const playIcon='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>';
+  const btn=$("#pPlay"); if(btn){ btn.innerHTML=on?pauseIcon:playIcon; btn.setAttribute("aria-label",on?"አቁም":"አጫውት"); }
+}
+function toggle(){
+  if(!audio.src){ toast("መጀመሪያ ክፍል ምረጥ"); return; }
+  if(audio.paused){ audio.play().then(()=>setPlaying(true)).catch(()=>toast("የድምፅ ፋይሉ አልተገኘም")); }
+  else{ audio.pause(); setPlaying(false); }
+}
+function step(d){
+  if(!state.queue.length) return;
+  const n=(state.idx+d+state.queue.length)%state.queue.length;
+  playFrom(state.queue,n,state.kind);
+}
+function fmt(t){ if(!isFinite(t)||t<0) t=0; const m=Math.floor(t/60), s=Math.floor(t%60); return m+":"+String(s).padStart(2,"0"); }
+audio.addEventListener("timeupdate",()=>{
+  const pct=audio.duration?(audio.currentTime/audio.duration*100):0;
+  const f=$("#pFill"), k=$("#pKnob"), c=$("#pCur");
+  if(f){f.style.width=pct+"%"; k.style.left=pct+"%"; c.textContent=fmt(audio.currentTime);}
+});
+audio.addEventListener("loadedmetadata",()=>{ const d=$("#pDur"); if(d) d.textContent=fmt(audio.duration); });
+audio.addEventListener("ended",()=>step(1));
+audio.addEventListener("error",()=>setPlaying(false));
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape") closeSearch();
+  if(e.key===" " && !/input|textarea/i.test(e.target.tagName)){ e.preventDefault(); toggle(); }
+});
+
+/* ============================================================
+   ONBOARDING (first visit) + EmailJS placeholder submit
+   ============================================================ */
+function showApp(){
+  $("#onboard").classList.remove("show");
+  document.body.style.overflow="";
+}
+function showOnboarding(){
+  $("#onboard").classList.add("show");
+}
+$("#obSkip").addEventListener("click",()=>{ store.set("ys_visited","1"); showApp(); });
+
+$("#obForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const name=$("#obName").value.trim(), email=$("#obEmail").value.trim(),
+        phone=$("#obPhone").value.trim(), job=$("#obJob").value.trim();
+  if(!name||!email||!phone||!job) return;
+  const btn=$("#obSubmit"), label=$("#obSubmitText");
+  btn.disabled=true; label.textContent="በመላክ ላይ…";
+  const done=()=>{ store.set("ys_visited","1"); showApp(); };
+  if(window.emailjs && EMAILJS_SERVICE_ID!=="YOUR_SERVICE_ID"){
+    emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,{name,email,phone,job})
+      .then(done)
+      .catch(()=>{ toast("መላክ አልተሳካም — ያለ ግንኙነት ቀጥሏል"); done(); });
+  }else{
+    /* EmailJS not configured yet — placeholder account, don't block the user */
+    setTimeout(done,350);
+  }
+});
+
+/* ---------- boot ---------- */
+renderCats();
+setPlaying(false);
+
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    $("#splash").classList.add("hide");
+    const visited=store.get("ys_visited");
+    if(!visited){ document.body.style.overflow="hidden"; showOnboarding(); }
+  },1000);
+});
+</script>
+</body>
+</html>
